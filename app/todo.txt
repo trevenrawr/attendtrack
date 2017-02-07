@@ -1,0 +1,81 @@
+0. Requirements:
+    - mySQL 5.6.5 or newer (from mysql community repo)
+    - PHP 5.5 or newer with (from webtatic repo: php56w)
+        - mcrypt
+        - pdo
+        - mysql
+        - ldap
+    - OpenLDAP installed
+
+1. Setting up MySQL:
+    $ sudo mysql_secure_installation
+
+    CREATE USER 'tiger'@'localhost' IDENTIFIED BY 'tiger2014';
+    CREATE DATABASE attendtrack;
+    GRANT ALL PRIVILEGES ON attendtrack.* TO 'tiger'@'localhost';
+    FLUSH PRIVILEGES;
+    SET GLOBAL sql_mode = 'NO_ENGINE_SUBSTITUTION';
+
+2. Allow .htaccess to make changes in /etc/httpd/conf/httpd.conf
+
+3. $ sudo chmod -R 777 app/storage/
+    - Or possibly just make owner apache?
+
+
+Colors:
+    CU Gold - #cfb87c
+    Black - #000000
+    CU Dark Gray - #565a5c
+    CU Light Gray - #a2a4a3
+
+
+SSL Challenge PW: CashmereRocks
+
+
+
+128.138.221.40
+WorkCentre 7428 - Xerox
+
+
+NOTES! ---------------------------------------------------------
+
+Roles/permissions:
+    -Edit teacher info / cert stuff (tinfo)
+    -Add/Rem attendance records (attendance)
+    -Add/edit workshops (wsinfo)
+    -Add/edit/rem feedback (fbinfo)
+    -Start sign-in (wssignin)
+    -Pull up reports (reports)
+    -Edit permissions, depts, series (su)
+Determine role dependencies:
+    tinfo
+    wsinfo -> attendance
+    wsinfo
+    fbinfo
+    wsinfo -> fbinfo (security issue?)
+    wssignin
+    reports
+    all -> su
+        
+        
+O(hio)SU -
+Calendar based
+    Events
+    Consultations (+unit)
+    Outreach/service
+email adddresses as unique IDs
+pre-registrations for workshops
+take list of registration and have people check themselves off
+published things on it
+Annual report -
+    list of events
+    # of unique individuals
+    # of consultations
+    # departments interacted with
+    affiliation breakdown
+long-term assessment data - send a survey from random subset in DB
+program review - are we meeting objectives set out
+include a list of general topics covered in the WS
+How much time spent planning for an event
+Have PDFs of handouts
+email reminders to pre-registrations and print nametags

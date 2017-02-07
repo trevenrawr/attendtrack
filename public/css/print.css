@@ -1,0 +1,223 @@
+@media print {
+    body {
+        background: white;
+        font-family: sans-serif;
+        font-size: 10pt;
+        color: black;
+    }
+
+    #wrapper {
+        width: 100%;
+    }
+
+    #page {
+        border: none;
+        position: relative;
+        background: white;
+        padding: 0.75em;
+        margin: 0;
+    }
+
+    #menu {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+    #footer {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #permsBox,
+    input[type=submit],
+    .submit,
+    .message {
+        display: none;
+    }
+    
+    input, select, input:checked ~ label {
+        color: black;
+        font-family: sans-serif;
+        border: none;
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+    
+    input {
+        padding-left: 0.6em;
+    }
+    
+    input:checked ~ label {
+        position: relative;
+        left: -0.3em;
+    }
+    
+    input[type=radio], input[type=file] {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li input:not(:checked) ~ label {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    form {
+        display: inline;
+    }
+    
+    fieldset {
+        border: none;
+        font-size: 85%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    fieldset>label {
+        position: relative;
+        left: -0.3em;
+        margin-top: 0.5em;
+        display: block;
+        text-align: left;
+        font-weight: bold;
+        font-variant: small-caps;
+    }
+
+    textarea {
+        display: block;
+        width: 95%;
+        margin: 0 auto;
+        height: 4em;
+        overflow: auto;
+        border: none;
+    }
+
+    hr {
+        margin-top: 0em;
+    }
+
+    a, a:visited, a.start {
+        color: black;
+        text-decoration: none;
+    }
+    
+    .dontBreak {
+        page-break-inside: avoid;
+    }
+
+    .radioList {
+        list-style: none;
+        margin: 0;
+        padding-left: 1em;
+    }
+    .radioList li {
+        padding: 0;
+    }
+    
+    .pageBreak {
+        page-break-after: always;
+    }
+    
+    
+    
+    .rating {
+        text-align: center;
+        width: 95%;
+        margin: 0 auto;
+        table-layout: fixed;
+    }
+
+    .yesNoWhy {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .yesNoWhy textarea {
+        width: 100%;   
+    }
+
+    .radioLabel {
+        margin-bottom: 0.1em;
+    }
+
+    .WSList {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 0.5em;
+        font-size: 85%;
+    }
+    .WSList td {
+        padding: 0.3em;
+    }
+    .WSList thead, .question {
+        font-weight: bold;
+    }
+    .WSList thead td, .question td {
+        border-bottom: solid 3px black;
+    }
+    .WSList tfoot tr {
+        background: #c4ebc8;
+    }
+    .WSList tfoot td {
+        border-top: solid 1px black;
+    }
+
+    .error {
+        display: none;
+    }
+
+    .anonStud {
+        width: 7em;
+    }
+    .yorn {
+        width: 2em;
+    }
+
+    .evenRow {
+    }
+    .oddRow {
+        -webkit-print-color-adjust: exact;
+        background: #f0f0f0 !important;
+    }
+
+    .section {
+        margin-top: 2em;
+        margin-bottom: 0em;
+        font-weight: bold;
+        font-size: 120%;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .pagination {
+        display: block;
+        text-align: center;
+        margin: 0.5em auto;
+        padding: 0.1em;
+        list-style: none;
+    }
+    .pagination li {
+        display: inline-block;
+        padding: 0.5em;
+    }
+
+    label.label {
+        display: block;
+        text-align: left;
+        width: 11em;
+    }
+
+    label span, .required {
+        display: none;
+    }
+
+    .field {
+        width: 24em;
+    }
+}

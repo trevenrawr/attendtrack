@@ -1,0 +1,378 @@
+html, body {
+    min-height: 100%;
+}
+
+body {
+    background: -webkit-linear-gradient(top, white 0%, #cfb87c 600px, #cfb87c 100%);
+    background: -o-linear-gradient(top, white 0%, #cfb87c 600px, #cfb87c 100%);
+    background: -moz-linear-gradient(top, white 0%, #cfb87c 600px, #cfb87c 100%);
+    background: linear-gradient(top, white 0%, #cfb87c 600px, #cfb87c 100%);
+    font-family: "Helvetica Neue", "Helvetica", Arial, "Lucida Grande", sans-serif;
+    font-size: 100%;
+}
+
+#skiptocontent a {
+	padding: 6px;
+	position: absolute;
+	top: -40px;
+	left: 0px;
+	color: white;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+	border-bottom-right-radius: 0.5em;
+	background: transparent;
+	-webkit-transition: top 1s ease-out, background 1s linear;
+    transition: top 1s ease-out, background 1s linear;
+    z-index: 100;
+}
+
+#skiptocontent a:focus {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: #cfb87c;
+	outline: 0;
+	-webkit-transition: top .1s ease-in, background .5s linear;
+    transition: top .1s ease-in, background .5s linear;
+}
+
+#wrapper {
+    width: auto;
+}
+
+@media screen and (min-width: 960px) {
+    #wrapper {
+        width: 960px;
+        margin: 0.75em auto;
+    }
+}
+
+#banner {
+    position: relative;
+    background: url(/img/banner_black.png);
+    border: 1px solid black;
+    border-radius: 1em 1em 0 0;
+    height: 120px;
+}
+
+#page {
+    position: relative;
+    background: white;
+    padding: 0.75em;
+    border: 1px solid black;
+    border-radius: 1em;
+}
+
+#menu {
+    position: relative;
+    background: white;
+    padding: 0.5em 0;
+    margin-bottom: 0.75em;
+    border: 1px solid black;
+    border-radius: 0 0 1em 1em;
+}
+
+.tabHL {
+    padding: 0.5em 1em;
+    background: #cfb87c;
+    border-radius: 0.3em;
+}
+
+#menu table {
+    width: 95%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+#footer {
+    text-align: center;
+    font-size: 80%;
+    margin: 0.25em;
+}
+
+#WSdate, #WStime {
+    display: inline-block;
+}
+
+form {
+    display: inline;
+    font-size: 100%;
+}
+
+textarea {
+    display: block;
+    width: 95%;
+    margin: 0 auto;
+    height: 4em;
+    overflow: auto;
+    border-radius: 3px;
+}
+
+hr {
+    margin-top: 0em;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: #d0b87c;
+}
+
+a, a:visited {
+    color: #424242;
+    text-decoration: underline;
+}
+a:hover {
+    color: blue;
+}
+
+a.start, a.start:visited {
+    color: green;
+}
+a.stop, a.stop:visited {
+    color: red;
+}
+
+
+/* Formatting for forms */
+
+input, select {
+    font-family: sans-serif;
+    padding: 0.4em;
+    margin: 0.25em;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+input:not(type=submit) {
+    height: 1.32em;
+}
+
+[disabled] {
+    background: #ebebe4;
+}
+
+fieldset {
+    margin-top: 1em;
+    border: none;
+    padding-left: 2em;
+    padding-top: 0;
+    font-size: 100%;
+}
+fieldset legend {
+    position: relative;
+    color: #835e00;
+    font-size: 100%;
+    left: -1.25em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+fieldset label {
+    font-size: 100%;
+    position: relative;
+    left: -0.3em;
+    margin-top: 0.5em;
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #333333;
+}
+fieldset input:not(type=radio) {
+    position: relative;
+    display: inline-block;
+    box-shadow: rgb(221, 221, 221) 0px 1px 3px 0px inset;
+    width: 9em;
+}
+
+#WSdate {
+}
+#WStime {
+    display: inline-block;
+}
+
+.pageBreak {
+    display: none;
+}
+
+.radioLabel {
+    display: inline;
+    position: relative;
+    left: 0em;
+    font-weight: normal;
+    font-size: 85%;
+    font-variant: normal;
+    text-align: center;
+}
+
+.rating {
+    text-align: center;
+    width: 95%;
+    margin: 0 auto;
+    table-layout: fixed;
+}
+
+.yesNoWhy {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.yesNoWhy textarea {
+    width: 100%;   
+}
+
+.radioList {
+    list-style: none;
+    margin: 0;
+    padding-left: 1em;
+}
+.radioList li {
+    padding: 0.5em;
+}
+
+@media screen and (min-width: 55em) {
+    .radioList li {
+        display: inline-block;
+        padding: 0.3em;
+    }
+}
+
+.WSList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5em;
+    font-size: 90%;
+}
+.WSList td, .WSList th {
+    text-align: left;
+    padding: 0.3em;
+    height: 1.75em;
+}
+.WSList thead, .question {
+    font-weight: bold;
+}
+.WSList thead th, .question td {
+    border-bottom: solid 1px black;
+    padding: 0.3em;
+    height: 1.75em;
+    text-align: left;
+}
+.WSList tfoot tr {
+    background: #c4ebc8;
+}
+.WSList tfoot td {
+    border-top: solid 1px grey;
+}
+.WSList tr td:first-of-type {
+    text-align: left;
+}
+
+.anonStud {
+    width: 7em;
+}
+.yorn {
+    width: 2em;
+}
+
+.message {
+    display: block;
+    width: auto;
+    text-align: center;
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+@media screen and (min-width: 55em) {
+    .message {
+        width: 65%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.noedit {
+    background: white;
+}
+
+.errorList {
+    padding: 0em;
+}
+
+.error {
+    text-align: center;
+    width: 100%;
+    color: red;
+    list-style: none;
+}
+
+.submit {
+    position: relative;
+    display: block;
+    margin: 1em auto;
+    background: #333333;
+    color: #f3f3f3;
+    padding: 0.5em 1em;
+}
+
+.submit:hover {
+    background: #cfb87c;
+    color: #333333;
+}
+
+.creditSubmit {
+    background: #d7f2dd;
+}
+
+.delete, .addnew {
+    display: inline;
+}
+.delete input {
+    background: #ffa6a6;
+}
+.addnew input {
+    background: #d7f2dd;
+}
+
+.evenRow {
+}
+.oddRow {
+    background: #f4eee1;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+.section {
+    margin-top: 2em;
+    margin-bottom: 0em;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.right {
+    float: right;
+}
+
+.loggedon {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: white;
+    margin: 0.25em 0.5em;
+}
+
+.pagination {
+    display: block;
+    text-align: center;
+    margin: 0.5em auto;
+    padding: 0.1em;
+    list-style: none;
+}
+.pagination li {
+    display: inline-block;
+    padding: 0.5em;
+}
+
+label span, legend span, .required {
+    color: red;
+    font-weight: bold;
+}

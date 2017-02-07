@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /T/
+Disallow: /WS/
+Disallow: /FB/
+Disallow: /R/
