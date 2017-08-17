@@ -11,17 +11,17 @@ CREATE TABLE IF NOT EXISTS colleges (
 INSERT INTO colleges
     (title)
 VALUES
-    'College of Arts and Sciences',
-    'Leeds School of Business',
-    'School of Education',
-    'College of Engineering and Applied Science',
-    'Graduate School',
-    'School of Law',
-    'College of Media, Communication and Information',
-    'College of Music',
-    'Continuing Education and Professional Studies',
-    'University Libraries',
-    'Program in Environmental Design';
+    ('College of Arts and Sciences'),
+    ('Leeds School of Business'),
+    ('School of Education'),
+    ('College of Engineering and Applied Science'),
+    ('Graduate School'),
+    ('School of Law'),
+    ('College of Media, Communication and Information'),
+    ('College of Music'),
+    ('Continuing Education and Professional Studies'),
+    ('University Libraries'),
+    ('Program in Environmental Design');
 
 CREATE TABLE IF NOT EXISTS departments (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS departments (
 ) ENGINE=INNODB;
 
 INSERT INTO departments
-    (title, STEM)
+    (title, acronym, STEM)
 VALUES
     ('Aerospace Engineering Sciences', 'ASEN', true),
     ('Accounting and Business Law', 'ACCT', false),
@@ -78,7 +78,7 @@ VALUES
     ('Mechanical Engineering', 'MCEN', true),
     ('Molecular, Cellular, and Developmental Biology', 'MCDB', true),
     ('Music', 'MUSC', false),
-    ('Operations and Information Management', false),
+    ('Operations and Information Management', 'OPIM', false),
     ('Philosophy', 'PHIL', false),
     ('Physics', 'PHYS', true),
     ('Political Science', 'PSCI', true),
@@ -88,7 +88,7 @@ VALUES
     ('Spanish and Portuguese', 'SPAN', false),
     ('Speech, Language, and Hearing Sciences', 'SLHS', true),
     ('Theatre and Dance', 'THTR', false),
-    ('Women\'s Studies', 'WMST', false)
+    ('Women\'s Studies', 'WMST', false),
     ('Other', '----', false);
 
 
