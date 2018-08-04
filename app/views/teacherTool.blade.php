@@ -171,17 +171,17 @@
 
     <fieldset>
         <label for="firstVTCdate">First VTC</label>
-        Peformed by
+        Peformed <!-- by
         <?php
-            if (!empty($teacher->firstVTCer)) {
-                $fVTC = Teacher::find($teacher->firstVTCer);
-                $firstVTCer = $fVTC->name;
-            } else {
-                $firstVTCer = '';
-            }
-            $teacher->firstVTCer = $firstVTCer;
-            echo Form::who('firstVTCer', $teacher, $dtext);
-        ?>
+            // if (!empty($teacher->firstVTCer)) {
+            //     $fVTC = Teacher::find($teacher->firstVTCer);
+            //     $firstVTCer = $fVTC->name;
+            // } else {
+            //     $firstVTCer = '';
+            // }
+            // $teacher->firstVTCer = $firstVTCer;
+            // echo Form::who('firstVTCer', $teacher, $dtext);
+        ?> -->
         on {{ Form::date('firstVTCdate', $teacher, $dtext) }}
         @if($edit)
             <br />
@@ -192,17 +192,17 @@
         @endif
 
         <label for="secondVTCdate">Second VTC</label>
-        Performed by 
+        Performed <!-- by 
         <?php
-            if (!empty($teacher->secondVTCer)) {
-                $sVTC = Teacher::find($teacher->secondVTCer);
-                $secondVTCer = $sVTC->name;
-            } else {
-                $secondVTCer = '';
-            }
-            $teacher->secondVTCer = $secondVTCer;
-            echo Form::who('secondVTCer', $teacher, $dtext);
-        ?>
+            // if (!empty($teacher->secondVTCer)) {
+            //     $sVTC = Teacher::find($teacher->secondVTCer);
+            //     $secondVTCer = $sVTC->name;
+            // } else {
+            //     $secondVTCer = '';
+            // }
+            // $teacher->secondVTCer = $secondVTCer;
+            // echo Form::who('secondVTCer', $teacher, $dtext);
+        ?> -->
         on {{ Form::date('secondVTCdate', $teacher, $dtext) }}
         @if($edit)
             <br />
@@ -212,12 +212,12 @@
             (<a target="_blank" href="/T/notes/{{ $teacher->id }}/2" class="start">Second VTC notes</a>)
         @endif
 
-        <label for="CCT_kolb_quad">Kolb LSI</label>
+        <label for="CCT_kolb_quad">Kolb LSI (Not required as of August 2016)</label>
         {{ Form::status('CCT_kolb_quad', $teacher, $dtext) }}
         as of {{ Form::date('CCT_kolb_date', $teacher, $dtext) }}
         administered by {{ Form::who('CCT_kolb_who', $teacher, $dtext) }}
 
-        <label for="CCT_wing_date">Wingspread</label>
+        <label for="CCT_wing_date">Wingspread (Not required as of August 2016)</label>
         Administered by {{ Form::who('CCT_wing_who', $teacher, $dtext) }}
         on {{ Form::date('CCT_wing_date', $teacher, $dtext) }}
     </fieldset>
@@ -231,9 +231,10 @@
             Observed by {{ Form::who('CCT_obser_who', $teacher, $dtext) }}
             on {{ Form::date('CCT_obser_date', $teacher, $dtext) }}
 
-        <label for="CCT_depteval_date">Department Evaluation</label>
+        <!-- <label for="CCT_depteval_date">Department Evaluation</label>
             Evaluated by {{ Form::who('CCT_depteval_who', $teacher, $dtext) }}
             on {{ Form::date('CCT_depteval_date', $teacher, $dtext) }}
+        -->
     </fieldset>
 
     <fieldset>

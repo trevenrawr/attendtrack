@@ -31,7 +31,7 @@ class WorkshopController extends BaseController {
         Session::forget('ws_att_id');
         Session::forget('attMess');
         
-        $perPage = 25;
+        $perPage = 150;
         $title = 'Workshop List';
         
         $this->wsFilterFlash();
