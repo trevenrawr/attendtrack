@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-  attendtrack:
+  httpd:
     build: .
     image: attendtrack:latest
-    command: 
     ports:
-      - "80"
+      - "8080:80"
     stdin_open: true
     tty: true
     volumes:
       - .:/var/www/html
     depends_on:
       - db
+
   db:
     image: mysql:8
     environment:
@@ -20,3 +20,5 @@ services:
       MYSQL_DATABASE: attendtrack
       MYSQL_USER: attendtrack
       MYSQL_PASSWORD: password
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
