@@ -136,7 +136,7 @@ if (empty($user)) $user = new Teacher;
         </div>
     </div>
     <div id="footer">
-        &copy;2014-2015 Trevor DiMartino, Graduate Teacher Program, CU Boulder
+        &copy;2014-2018 Trevor DiMartino, Graduate Teacher Program, CU Boulder
     </div>
 </body>
 </html>
