@@ -119,7 +119,7 @@
 
 <!-- --------------------------------------------------------------------------------------------- -->
 <div class="dontBreak">
-    @if($teacher->presentations->count() != 0 && !$su)
+    @if($teacher->presentations->count() > 0)
     <h2 class="section">Workshop Presentation Information:</h2>
     <hr />
 
