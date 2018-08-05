@@ -8,8 +8,16 @@ if (empty($user)) $user = new Teacher;
 ?>
 
 <div style="text-align: center;">
+    {{ Form::open(array('url' => '/WS/list', 'method' => 'get')) }}
+    <label for="wsName">Search by name:</label>
+    {{ Form::text('wsName', Session::get('wsName'), array('placeholder' => 'name', 'id' => 'wsName')) }}
+    {{ Form::submit('Search') }}
+    {{ Form::close() }}
+
+    <hr style="margin-top: 5px" />
+
     {{ Form::open(array('url' => '/WS/list')) }}
-    Series: {{ Form::selects('series_id', Session::get('series_id')) }}<br />
+    Filter by Series: {{ Form::selects('series_id', Session::get('series_id')) }}<br />
     Semester: {{ Form::selects('semsel', Session::get('semsel')) }}
     or dates from: {{ Form::date('date_start', Session::get('date_start')) }}
     to: {{ Form::date('date_end', Session::get('date_end')) }}<br />

@@ -24,21 +24,24 @@ class WorkshopController extends BaseController {
         $title = 'Workshop Information Tool';
         return View::make('workshopTool', array('title' => $title, 'workshop' => $workshop, 'edit' => $edit));
     }
-    
+
     public function workshopList()
     {
         // Make sure that if someone was adding attendees, they have to select a WS to keep doing so
         Session::forget('ws_att_id');
         Session::forget('attMess');
         
-        $perPage = 150;
+        $perPage = 100;
         $title = 'Workshop List';
         
         $this->wsFilterFlash();
         
+        $wsName = Input::get('wsName');
+
         $workshops = Workshop::with('series')->
             with('demographics')->
             wsFilter()->
+            where('title', 'LIKE', '%'.$wsName.'%')->
             orderBy('date', 'desc')->
             paginate($perPage);
         
