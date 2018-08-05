@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  attendtrack:
+    build: .
+    image: attendtrack:latest
+    command: 
+    ports:
+      - "80"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: super-secret-password
+      MYSQL_DATABASE: attendtrack
+      MYSQL_USER: attendtrack
+      MYSQL_PASSWORD: password
