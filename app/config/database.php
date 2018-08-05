@@ -54,7 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'mysql',
+			'host'      => 'db',
 			'database'  => 'attendtrack',
 			'username'  => 'attendtrack',
 			'password'  => 'password',
