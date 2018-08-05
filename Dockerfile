@@ -12,6 +12,9 @@ RUN yum -y install httpd; \
     yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo; \
     yum clean all
 
+RUN rm /etc/httpd/conf/httpd.conf
+COPY local_httpd.conf /etc/httpd/conf/httpd.conf
+
 COPY . /var/www/html/
 
 EXPOSE 80
