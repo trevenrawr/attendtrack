@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'mysql',
-			'database'  => ,
-			'username'  => ,
-			'password'  => ,
+			'database'  => 'attendtrack',
+			'username'  => 'attendtrack',
+			'password'  => 'password',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
