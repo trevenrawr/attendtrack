@@ -227,7 +227,7 @@
             {{ Form::text('CCT_disc_spec', isset($teacher->CCT_disc_spec) ? $teacher->CCT_disc_spec : '', $dis) }}
             signed off by {{ Form::who('CCT_disc_spec_who', $teacher, $dtext) }}
 
-        <label for="CCT_obser_date">Classroom Observation</label>
+        <label for="CCT_obser_date">Faculty Observation</label>
             Observed by {{ Form::who('CCT_obser_who', $teacher, $dtext) }}
             on {{ Form::date('CCT_obser_date', $teacher, $dtext) }}
 
@@ -262,7 +262,7 @@
 
 <!-- --------------------------------------------------------------------------------------------- -->
 <div class="dontBreak">
-    <h2 class="section">Professional Development Certificate Information:</h2>
+    <h2 class="section">Future Faculty Development Certificate Information:</h2>
     <hr />
 
     <fieldset>
