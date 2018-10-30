@@ -20,7 +20,6 @@ if (isset($workshop->time)) {
 } else {
     $time = '';
 }
-
 if ($edit) {
     $dis = array();
     $dtext = '';
@@ -29,7 +28,6 @@ if ($edit) {
     $dtext = 'disabled="disabled" ';
 }
 $dperm = 'disabled="disabled" ';
-
 $user = Teacher::find(Session::get('user'));
 if (empty($user)) $user = new Teacher;
 ?>
@@ -105,20 +103,32 @@ if (empty($user)) $user = new Teacher;
         $i = 0;
         foreach ($workshop->demographics as $att) {
             $t = Teacher::find($att->teacher_id);
+			
             echo '
                 <tr class="'.((($i % 2) == 0) ? 'evenRow' : 'oddRow').'">';
             
-             if ($user->permissions('tinfo')) {
-                echo '
-                    <td><a href="/T/info/'.$t->id.'">'.$t->name.'</a></td>';
-            } else {
-                echo '
-                    <td>'.$t->name.'</td>';
+			if($t->id==0){
+				echo '
+                    <td>'.$att->attendee_name.'</td>';
+				echo '
+                    <td><a href="mailto:'.$att->attendee_email.'">'.$att->attendee_email.'</a></td>';
+				echo '
+					<td></td>';	//department place
+			}
+			else{
+				if ($user->permissions('tinfo')) {
+					echo '
+						<td><a href="/T/info/'.$t->id.'">'.$t->name.'</a></td>';
+				} else {
+					echo '
+						<td>'.$t->name.'</td>';
+				}
+				echo '
+                    <td><a href="mailto:'.$t->email.'">'.$t->email.'</a></td>';
+				echo '
+					<td>'.$t->department->title.'</td>';
             }
-
-            echo '
-                    <td><a href="mailto:'.$t->email.'">'.$t->email.'</a></td>
-                    <td>'.$t->department->title.'</td>';
+				
             if ($user->permissions('attendance')) {
                 echo '
                     <td>'.Form::open(array('url' => '/WS/delAtt/', 'onsubmit' => 'return confirm(\'Are you sure you want to delete this attedance record?\');', 'class' => 'delete')).Form::hidden('att_id', $att->id).Form::submit('Remove').Form::close().'</td>

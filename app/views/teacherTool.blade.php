@@ -14,7 +14,7 @@
 ?>
 
 {{ Form::open(array('url' => '/T/update', 'files' => 'true')) }}
-{{ Form::hidden('identikey', $teacher->identikey) }}
+{{ Form::hidden('identikey', isset($teacher) ? $teacher->identikey : '') }}
 <div class="dontBreak">
     <h2 class="section">Demographic Information:</h2>
     <hr />
@@ -22,10 +22,10 @@
         <label for="name"><span>*</span>Full Name</label>
         {{ Form::text('name', isset($teacher->name) ? $teacher->name : '', array('id' => 'name', 'placeholder' => 'name', 'required' => 'true')) }}<br />
 
-        <label for="email"><span>*</span>Email</label>
-        {{ Form::email('email', isset($teacher->email) ? $teacher->email : '', array('id' => 'email', 'style' => 'width: 18.9em;', 'placeholder' => 'you@colorado.edu', 'required' => 'true')) }}
+        <label for="email">@if($teacher)<span>*</span>@endif Email</label>
+        {{ Form::email('email', isset($teacher->email) ? $teacher->email : '', array('id' => 'email', 'style' => 'width: 18.9em;', 'placeholder' => 'you@colorado.edu', isset($teacher) ? 'required' : '' )) }}
     </fieldset>
-
+	@if($teacher)
     <fieldset>
         <label for="department_id"><span>*</span>Department/Major</label>
         {{ Form::deptList(isset($teacher->department_id) ? $teacher->department_id : '') }}<br />
@@ -33,16 +33,14 @@
         {{ Form::choices('program', isset($teacher->program) ? $teacher->program : '') }}
         <label for="affiliation"><span>*</span>Position</label>
         {{ Form::choices('affiliation', isset($teacher->affiliation) ? $teacher->affiliation : '') }}
-        <label for="year"><span>*</span>Year in Grad School</label>
+        <label for="year"><span>*</span>Year in Grad School/On Campus</label>
         {{ Form::text('year', isset($teacher->year) ? $teacher->year : '', array('id' => 'year', 'style' => 'width: 3em;', 'required' => 'true')) }}
-    </fieldset>
-
-    <fieldset>
-        <label for="gender">Gender</label>
-        {{ Form::choices('gender', isset($teacher->gender) ? $teacher-> gender : '') }}
+	</fieldset>
+	<fieldset>
         <label for="international">International</label>
         {{ Form::choices('international', isset($teacher->international) ? $teacher->international : '') }}
     </fieldset>
+	@endif
 
     @if($su)
     <fieldset id="permsBox">

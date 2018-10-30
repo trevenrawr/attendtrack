@@ -9,7 +9,7 @@ Form::macro('choices', function($type, $curr)
         $options = array('undergrad', 'masters', 'doctorate', 'postdoc', 'faculty', 'other');
         $req = ' required="true"';
     } elseif ($type == 'affiliation') {
-        $options = array('RA', 'TA', 'GPTI', 'instructor', 'professor', 'other');
+        $options = array('TA', 'GPTI', 'RA', 'instructor', 'professor', 'staff', 'other');
         $req = ' required="true"';
     } elseif ($type == 'international') {
         $options = array('yes', 'no');

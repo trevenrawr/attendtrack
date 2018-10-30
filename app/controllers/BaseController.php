@@ -1,5 +1,4 @@
 <?php
-
 class BaseController extends Controller {
 
 	/**
@@ -30,8 +29,6 @@ class BaseController extends Controller {
         
         if (empty(Input::get('date_start')))
             $dend = '';
-        elseif (empty(Input::get('date_end')) && !empty(Input::get('date_start')))
-            $dend = date('Y-m-d');
         else
             $dend = Input::get('date_end');
         Session::put('date_end', $dend);
@@ -49,7 +46,7 @@ class BaseController extends Controller {
         if ($name != '') {
             // Pull in all the teachers, but NEVER the gtp user
             $tList = Teacher::where('name', 'LIKE', '%'.$name.'%')->
-                where('id', '<>', 1)->get();
+                where('id', '>', 1)->get();
         } else {
             $tList = null;
         }
@@ -60,7 +57,7 @@ class BaseController extends Controller {
     protected function logAction($action, $note = '')
     {
         $act = new Action;
-        $act->teacher_id = Session::get('user');
+        $act->teacher_id = Session::get('user') != null ? Session::get('user') : 0 ;
         $act->ip = Request::getClientIp();
         $act->action = $action;
         $act->note = $note;
