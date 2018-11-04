@@ -113,7 +113,7 @@ if (empty($user)) $user = new Teacher;
 				echo '
                     <td><a href="mailto:'.$att->attendee_email.'">'.$att->attendee_email.'</a></td>';
 				echo '
-					<td></td>';	//department place
+					<td></td>';	//department placeholder
 			}
 			else{
 				if ($user->permissions('tinfo')) {
@@ -131,8 +131,10 @@ if (empty($user)) $user = new Teacher;
 				
             if ($user->permissions('attendance')) {
                 echo '
-                    <td>'.Form::open(array('url' => '/WS/delAtt/', 'onsubmit' => 'return confirm(\'Are you sure you want to delete this attedance record?\');', 'class' => 'delete')).Form::hidden('att_id', $att->id).Form::submit('Remove').Form::close().'</td>
-                    <td>'.Form::open(array('url' => '/WS/attCred/')).Form::hidden('att_id', $att->id).Form::text('credits', $att->credits, array('style' => 'width:1.5em;')).Form::submit('&#x2713;', array('class' => 'creditSubmit')).Form::close().'</td>';
+                    <td>'.Form::open(array('url' => '/WS/delAtt/', 'onsubmit' => 'return confirm(\'Are you sure you want to delete this attedance record?\');', 'class' => 'delete')).Form::hidden('att_id', $att->id).Form::submit('Remove').Form::close().'</td>';
+				if($t->id!=0){
+                    echo '<td>'.Form::open(array('url' => '/WS/attCred/')).Form::hidden('att_id', $att->id).Form::text('credits', $att->credits, array('style' => 'width:1.5em;')).Form::submit('&#x2713;', array('class' => 'creditSubmit')).Form::close().'</td>';
+				}
             }
             echo '
                 </tr>';
