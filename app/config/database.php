@@ -1,5 +1,13 @@
 <?php
 
+if ($env_file = fopen('db_secrets.env', 'r')) {
+    while(!feof($env_file)) {
+        $line = trim(fgets($env_file));
+        putenv($line);
+    }
+    fclose($env_file);
+}
+
 return array(
 
 	/*
@@ -55,9 +63,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'db',
-			'database'  => 'attendtrack',
-			'username'  => 'attendtrack',
-			'password'  => 'password',
+			'database'  => getenv("MYSQL_DATABASE"),
+			'username'  => getenv("MYSQL_USER"),
+			'password'  => getenv("MYSQL_PASSWORD"),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
