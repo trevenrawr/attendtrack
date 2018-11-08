@@ -1,6 +1,6 @@
 <?php
 
-if ($env_file = fopen('db_secrets.env', 'r')) {
+if ($env_file = fopen('../.env', 'r')) {
     while(!feof($env_file)) {
         $line = trim(fgets($env_file));
         putenv($line);
