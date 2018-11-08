@@ -1,9 +1,10 @@
 <?php
-
+$envs = [];
 if ($env_file = fopen('../.env', 'r')) {
     while(!feof($env_file)) {
         $line = trim(fgets($env_file));
-        putenv($line);
+        $envs[] = $line;
+        #putenv($line);
     }
     fclose($env_file);
 }
@@ -62,10 +63,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'db',
-			'database'  => getenv("MYSQL_DATABASE"),
-			'username'  => getenv("MYSQL_USER"),
-			'password'  => getenv("MYSQL_PASSWORD"),
+			'host'      => $envs[0],
+			'database'  => $envs[1],
+			'username'  => $envs[2],
+			'password'  => $envs[3],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
