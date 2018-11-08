@@ -1,5 +1,4 @@
 <?php
-
 class WorkshopController extends BaseController {
     
     public function getWorkshop($id)
@@ -34,19 +33,20 @@ class WorkshopController extends BaseController {
         $perPage = 100;
         $title = 'Workshop List';
         
-        $this->wsFilterFlash();
-        
+		$this->wsFilterFlash();
         $wsName = Input::get('wsName');
-
-        $workshops = Workshop::with('series')->
+		$today = date('Y-m-d');
+		$filteredWorkshops = Workshop::with('series')->
             with('demographics')->
             wsFilter()->
             where('title', 'LIKE', '%'.$wsName.'%')->
-            orderBy('date', 'desc')->
-            paginate($perPage);
-        
-        return View::make('workshopList', array('title' => $title, 'workshops' => $workshops));
+            orderBy('date', 'desc');
+		$todaysWorkshops = with(clone $filteredWorkshops)->where('date','=',$today)->paginate($perPage);
+		$otherWorkshops = with(clone $filteredWorkshops)->where('date','<>',$today)->paginate($perPage);
+		
+        return View::make('workshopList', array('title' => $title, 'todaysWorkshops'=>$todaysWorkshops, 'otherWorkshops' =>$otherWorkshops));
     }
+	
     
     public function attend()
     {
@@ -232,4 +232,6 @@ class WorkshopController extends BaseController {
         
         return Redirect::to('WS/list');
     }
+	
+	
 }

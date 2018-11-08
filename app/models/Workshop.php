@@ -97,7 +97,11 @@ class Workshop extends Eloquent {
     
     public function scopeDateRange($query, $ds, $de)
     {
-        return $query->where('date', '>', $ds)->where('date', '<', $de);
+		if(empty($de)){
+			return $query->where('date', '>=', $ds);
+		}else{
+			return $query->where('date', '>=', $ds)->where('date', '<=', $de);
+		}
     }
     
     public function isPresenter($id)

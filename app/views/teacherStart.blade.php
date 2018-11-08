@@ -22,7 +22,10 @@
     {{ Form::password('password', array('placeholder' => 'password')) }}
 </fieldset>
 
-{{ Form::submit('Log in', array('class' => 'submit')) }}
+{{ Form::submit('CU Student/Faculty/Staff', array('class' => 'submit', 'name'=>'usertype')) }}
+@if(isset($workshop))
+{{ Form::submit('Guest', array('class' => 'submit', 'name'=>'usertype')) }}
+@endif
 {{ Form::close() }}
 
 @stop

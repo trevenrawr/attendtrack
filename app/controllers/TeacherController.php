@@ -35,10 +35,12 @@ class TeacherController extends BaseController {
         $identikey = strtolower(Input::get('identikey'));
         $dn = 'uid='.$identikey.',ou=users,dc=colorado,dc=edu';
         $password = Input::get('password');
-        
-        
+        $userType = Input::get('usertype');
+		
+        if($userType == 'Guest'){
+			return Redirect::to('T/info/-1');
+		}
         $useLDAP = true;
-        
         
         // Verify with LDAP whether or not credentials are appropriate
         if ($useLDAP) {
@@ -103,6 +105,13 @@ class TeacherController extends BaseController {
     // Pull teacher info from the DB and load into the Teacher Tool
     public function getTeacher($id)
     {
+		if($id == -1){
+			return View::make('teacherTool', array('title' => 'Teacher Information',
+													'teacher' => null,
+													'edit' => null,
+													'su' => null,
+													'full' => false));
+		}
         $user = $this->getUser();
         
         // Make sure they are who they say they are, or have permission to edit teacher info
@@ -194,6 +203,11 @@ class TeacherController extends BaseController {
     // Post changes to the database
 	public function updateDB()
 	{
+		if(empty(Session::get('user'))){
+			$this->attend(null, Session::get('workshop_id'));
+			// Set it up for the next person
+			return Redirect::to('/T/logout');
+		}
         $v = Validator::make(Input::all(), Teacher::$rules, Teacher::$messages);
         
         // Check for validation errors, then update the DB!
@@ -316,6 +330,7 @@ class TeacherController extends BaseController {
                 
             // Save attendance data, if this sign-in is for attendance
             } else if (Session::has('workshop_id')) {
+				
                 $this->attend($teacher, Session::get('workshop_id'));
                 // Set it up for the next person
                 return Redirect::to('/T/logout');
@@ -366,17 +381,27 @@ class TeacherController extends BaseController {
     // Log attendance and a snapshop of the demographic information from the teacher who signed in
     private function attend($teacher, $ws_id)
     {
-        $att = Attendance::firstOrNew(
-            array('teacher_id' => $teacher->id, 'workshop_id' => $ws_id)
-        );
+		if(!isset($teacher)){
+			$att = new Attendance;
+			
+			$att->teacher_id = 0;			
+			$att->workshop_id = $ws_id;	
+			$att->attendee_name = Input::get('name');
+			$att->attendee_email = Input::get('email');
+		}
+		else{
+			$att = Attendance::firstOrNew(array('teacher_id' => $teacher->id , 'workshop_id' => $ws_id));
+
+			$att->department_id = isset($teacher->department_id) ? $teacher->department_id : null;
+			$att->gender = isset($teacher->gender) ? $teacher->gender : null;
+			$att->program = isset($teacher->program) ? $teacher->program : null;
+			$att->affiliation = isset($teacher->affiliation) ? $teacher->affiliation : null;
+			$att->international = isset($teacher->international) ? $teacher->international : null;
+			$att->year = $teacher->year;
+		}
+		
         $ws = Workshop::find($ws_id);
         $att->credits = $ws->credits;
-        $att->department_id = isset($teacher->department_id) ? $teacher->department_id : null;
-        $att->gender = isset($teacher->gender) ? $teacher->gender : null;
-        $att->program = isset($teacher->program) ? $teacher->program : null;
-        $att->affiliation = isset($teacher->affiliation) ? $teacher->affiliation : null;
-        $att->international = isset($teacher->international) ? $teacher->international : null;
-        $att->year = $teacher->year;
         
         if (count($att->getDirty()) > 0) {
             $att->save();

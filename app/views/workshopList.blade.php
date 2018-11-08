@@ -5,6 +5,7 @@
 <?php
 $user = Teacher::find(Session::get('user'));
 if (empty($user)) $user = new Teacher;
+$i=0;
 ?>
 
 <div style="text-align: center;">
@@ -51,55 +52,57 @@ if (empty($user)) $user = new Teacher;
     </thead>
     <tbody>
 <?php
-$i = 0;
-foreach ($workshops as $ws) {
-    $sess_ws = Session::get('workshop_id');
-    
-    if ($ws->date == date('Y-m-d')) {
-        if ($ws->id == $sess_ws) {
-            $login = Form::open(array_merge(array('url' => '/WS/stopAttend/', 'class' => 'delete', 'method' => 'get'))).Form::submit('Stop').Form::close();
-        } else {
-            $login = Form::open(array_merge(array('url' => '/WS/attend/', 'class' => 'addnew'))).Form::hidden('ws_id', $ws->id).Form::submit('Start').Form::close();
-        }
-    } else {
-        $login = Form::submit('', array('style' => 'visibility: hidden;'));
-    }
-    
-    if (!empty($ws->presenters[0]))
-        $pres = $ws->presenters[0]->name;
-    else
-        $pres = '<a href="/WS/info/'.$ws->id.'">Add presenter!</a>';
-    
-    if ($user->permissions('wsinfo'))
-        $ws_title = '<a href="/WS/info/'.$ws->id.'">'.$ws->title.'</a>';
-    else
-        $ws_title = $ws->title;
-    
-    echo '
-        <tr class="'.((($i % 2) == 0) ? 'evenRow' : 'oddRow').'">
-            <td>'.$ws_title.'</td>
-            <td>'.date_format(date_create($ws->date), 'n/d/Y').'</td>
-            <td>'.$pres.'</td>
-            <td>'.$ws->series->title.'</td>';
-    if ($user->permissions('wssignin')) {
-        echo '
-            <td>'.$login.'</td>';
-    }
-    echo '
-            <td>'.$ws->attendees->count().'</td>';
-    if ($user->permissions('fbinfo'))
-        echo '<td><a href="/FB/list/'.$ws->id.'" class="start">FB List</a></td>';
-    echo '
-        </tr>';
-    
-    $i++;
+function displayWorkshopList($workshops,$user){
+	global $i;
+	foreach ($workshops as $ws) {
+		$sess_ws = Session::get('workshop_id');
+		
+		if ($ws->date == date('Y-m-d')) {
+			if ($ws->id == $sess_ws) {
+				$login = Form::open(array_merge(array('url' => '/WS/stopAttend/', 'class' => 'delete', 'method' => 'get'))).Form::submit('Stop').Form::close();
+			} else {
+				$login = Form::open(array_merge(array('url' => '/WS/attend/', 'class' => 'addnew'))).Form::hidden('ws_id', $ws->id).Form::submit('Start').Form::close();
+			}
+		} else {
+			$login = Form::submit('', array('style' => 'visibility: hidden;'));
+		}
+		
+		if (!empty($ws->presenters[0]))
+			$pres = $ws->presenters[0]->name;
+		else
+			$pres = '<a href="/WS/info/'.$ws->id.'">Add presenter!</a>';
+		
+		if ($user->permissions('wsinfo'))
+			$ws_title = '<a href="/WS/info/'.$ws->id.'">'.$ws->title.'</a>';
+		else
+			$ws_title = $ws->title;
+		
+		echo '
+			<tr class="'.((($i % 2) == 0) ? 'evenRow' : 'oddRow').'">
+				<td>'.$ws_title.'</td>
+				<td>'.date_format(date_create($ws->date), 'n/d/Y').'</td>
+				<td>'.$pres.'</td>
+				<td>'.$ws->series->title.'</td>';
+		if ($user->permissions('wssignin')) {
+			echo '
+				<td>'.$login.'</td>';
+		}
+		echo '
+				<td>'.$ws->attendees->count().'</td>';
+		if ($user->permissions('fbinfo'))
+			echo '<td><a href="/FB/list/'.$ws->id.'" class="start">FB List</a></td>';
+		echo '
+			</tr>';
+		
+		$i++;
+	}
 }
+displayWorkshopList($todaysWorkshops,$user);
+displayWorkshopList($otherWorkshops,$user);
 ?>
     </tbody>
     <tfoot>
     </tfoot>
 </table>
-
-{{ $workshops->links() }}
-
+{{ $otherWorkshops->links() }}
 @stop

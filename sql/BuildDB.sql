@@ -1,3 +1,4 @@
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 CREATE TABLE IF NOT EXISTS colleges (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -104,7 +105,7 @@ CREATE TABLE IF NOT EXISTS teachers (
     year TINYINT,
     gender ENUM('male', 'female'),
     program ENUM('undergrad', 'masters', 'doctorate', 'postdoc', 'faculty', 'other'),
-    affiliation ENUM('RA', 'TA', 'GPTI', 'instructor', 'professor', 'other'),
+    affiliation ENUM('RA', 'TA', 'GPTI', 'instructor', 'professor', 'staff', 'other'),
     international ENUM('yes', 'no'),
     firstVTCer INT UNSIGNED,
     firstVTCdate DATE,
@@ -170,6 +171,10 @@ CREATE TABLE IF NOT EXISTS teachers (
     
 ) ENGINE=INNODB;
 
+INSERT INTO teachers
+    (id,identikey, name)
+VALUES
+    (0,'guest', 'Guest');
 INSERT INTO teachers
     (identikey, name, email)
 VALUES
@@ -341,10 +346,12 @@ CREATE TABLE IF NOT EXISTS attendance (
     teacher_id INT UNSIGNED NOT NULL,
     workshop_id INT UNSIGNED NOT NULL,
     credits TINYINT UNSIGNED NOT NULL DEFAULT 1,
+	attendee_name VARCHAR(127),
+	attendee_email VARCHAR(127),
     department_id INT UNSIGNED,
     gender ENUM('male', 'female'),
     program ENUM('undergrad', 'masters', 'doctorate', 'postdoc', 'faculty', 'other'),
-    affiliation ENUM('RA', 'TA', 'GPTI', 'instructor', 'professor', 'other'),
+    affiliation ENUM('RA', 'TA', 'GPTI', 'instructor', 'professor', 'staff', 'other'),
     international ENUM('yes', 'no'),
     year TINYINT,
     
