@@ -233,5 +233,27 @@ class WorkshopController extends BaseController {
         return Redirect::to('WS/list');
     }
 	
+	public function remWorkshop()
+    {
+        $ws = Workshop::find(Input::get('ws_id'));
+		$att_records = Attendance::where('workshop_id','=', $ws->id)->get();
+		$fb_records = Feedback::where('workshop_id','=', $ws->id)->get();
+		$ps_records = Presenter::where('workshop_id','=', $ws->id)->get();
+        
+		foreach($att_records as $att){
+			$att->delete();
+		}
+		foreach($fb_records as $fb){
+			$fb->delete();
+		}
+		foreach($ps_records as $ps){
+			$ps->delete();
+		}
+        
+        $this->logAction('delete', 'WS'.$ws->id);
+        $ws->delete();
+        
+        return Redirect::to('WS/list');
+    }
 	
 }

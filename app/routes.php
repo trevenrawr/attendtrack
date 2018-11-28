@@ -147,6 +147,8 @@ Route::post('WS/presAdd/', array('before' => 'isGTP:wsinfo', 'uses' => 'Workshop
 
 Route::post('WS/attCred/', array('before' => 'isGTP:attendance', 'uses' => 'WorkshopController@editAttendance'));
 
+// Delete a workshop
+Route::post('WS/delWS/', array('before' => 'isGTP:wsinfo', 'uses' => 'WorkshopController@remWorkshop'));
 
 /* ------------------------------------------------------------------------- */
 ///////                        Feedback routing                         ///////

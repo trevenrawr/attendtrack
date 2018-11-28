@@ -47,6 +47,9 @@ $i=0;
             <th>Att.</th>
             @if($user->permissions('fbinfo'))
             <th>FB Entry</th>
+			@endif
+			@if ($user->permissions('wsinfo'))
+			<th>Remove</th>
             @endif
         </tr>
     </thead>
@@ -91,6 +94,11 @@ function displayWorkshopList($workshops,$user){
 				<td>'.$ws->attendees->count().'</td>';
 		if ($user->permissions('fbinfo'))
 			echo '<td><a href="/FB/list/'.$ws->id.'" class="start">FB List</a></td>';
+		if ($user->permissions('wsinfo')){ 
+			$warn_message = "'Are you sure you want to delete the workshop: ".$ws->title."?'";
+                echo '
+                    <td>'.Form::open(array('url' => '/WS/delWS/', 'onsubmit' => "return confirm($warn_message);", 'class' => 'delete')).Form::hidden('ws_id', $ws->id).Form::submit('Remove').Form::close().'</td>';
+		}
 		echo '
 			</tr>';
 		
