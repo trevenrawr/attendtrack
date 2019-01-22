@@ -265,7 +265,8 @@ CREATE TABLE IF NOT EXISTS workshops (
     series_id INT UNSIGNED,
     semester ENUM('spring', 'summer', 'fall'),
     credits TINYINT UNSIGNED NOT NULL DEFAULT 1,
-    
+    active_flag BOOLEAN DEFAULT 1,
+
     PRIMARY KEY (id),
     INDEX (series_id),
     

@@ -29,7 +29,11 @@ class WorkshopController extends BaseController {
         // Make sure that if someone was adding attendees, they have to select a WS to keep doing so
         Session::forget('ws_att_id');
         Session::forget('attMess');
-        
+        if (!Session::has('show_active_ws')){
+            Session::put('show_active_ws',1);
+        }
+        $active = Session::get('show_active_ws');
+
         $perPage = 100;
         $title = 'Workshop List';
         
@@ -40,6 +44,7 @@ class WorkshopController extends BaseController {
             with('demographics')->
             wsFilter()->
             where('title', 'LIKE', '%'.$wsName.'%')->
+            where('active_flag','=',$active)->
             orderBy('date', 'desc');
 		$todaysWorkshops = with(clone $filteredWorkshops)->where('date','=',$today)->paginate($perPage);
 		$otherWorkshops = with(clone $filteredWorkshops)->where('date','<>',$today)->paginate($perPage);
@@ -233,27 +238,23 @@ class WorkshopController extends BaseController {
         return Redirect::to('WS/list');
     }
 	
-	public function remWorkshop()
-    {
+	public function switchWorkshopStatus(){
         $ws = Workshop::find(Input::get('ws_id'));
-		$att_records = Attendance::where('workshop_id','=', $ws->id)->get();
-		$fb_records = Feedback::where('workshop_id','=', $ws->id)->get();
-		$ps_records = Presenter::where('workshop_id','=', $ws->id)->get();
-        
-		foreach($att_records as $att){
-			$att->delete();
-		}
-		foreach($fb_records as $fb){
-			$fb->delete();
-		}
-		foreach($ps_records as $ps){
-			$ps->delete();
-		}
-        
-        $this->logAction('delete', 'WS'.$ws->id);
-        $ws->delete();
-        
+		
+        if($ws->active_flag){
+            $this->logAction('DeactivateWS', 'WS'.$ws->id);
+            $ws->active_flag=0;  
+        }else{
+            $this->logAction('ActivateWS', 'WS'.$ws->id);
+            $ws->active_flag=1;
+        }
+        $ws->save();
         return Redirect::to('WS/list');
     }
 	
+    public function switchWorkshopList(){
+        $current_active_flag=Session::get('show_active_ws');
+        Session::put('show_active_ws',!$current_active_flag);
+        return Redirect::to('WS/list');
+    }
 }

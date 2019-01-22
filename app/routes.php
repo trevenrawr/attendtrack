@@ -147,8 +147,13 @@ Route::post('WS/presAdd/', array('before' => 'isGTP:wsinfo', 'uses' => 'Workshop
 
 Route::post('WS/attCred/', array('before' => 'isGTP:attendance', 'uses' => 'WorkshopController@editAttendance'));
 
-// Delete a workshop
-Route::post('WS/delWS/', array('before' => 'isGTP:wsinfo', 'uses' => 'WorkshopController@remWorkshop'));
+// Deactivate a workshop
+Route::post('WS/switchWSStatus/', array('before' => 'isGTP:wsinfo', 'uses' => 'WorkshopController@switchWorkshopStatus'));
+
+//Switch to active/inactive workshops
+Route::get('WS/switchWSList', array('before' => 'isGTP:wsinfo', 'uses' => 'WorkshopController@switchWorkshopList'));
+
+
 
 /* ------------------------------------------------------------------------- */
 ///////                        Feedback routing                         ///////
