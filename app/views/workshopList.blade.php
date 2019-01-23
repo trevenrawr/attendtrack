@@ -31,7 +31,14 @@ $i=0;
 </div>
 
 @if($user->permissions('wsinfo'))
-<p><a href="/WS/info" class="start">Create a new workshop</a></p>
+<p><a href="/WS/info" class="start">Create a new workshop</a>&nbsp; &nbsp; 
+@if(Session::get('show_active_ws')==1)
+<a href="/WS/switchWSList" class="start">Show Inactive Workshops</a>
+@endif
+@if(Session::get('show_active_ws')==0)
+<a href="/WS/switchWSList" class="start">Show Active Workshops</a>
+@endif
+</p>
 @endif
 
 <table class="WSList sortable">
@@ -47,6 +54,9 @@ $i=0;
             <th>Att.</th>
             @if($user->permissions('fbinfo'))
             <th>FB Entry</th>
+			@endif
+			@if ($user->permissions('wsinfo'))
+			<th>Activate / Deactivate</th>
             @endif
         </tr>
     </thead>
@@ -57,7 +67,7 @@ function displayWorkshopList($workshops,$user){
 	foreach ($workshops as $ws) {
 		$sess_ws = Session::get('workshop_id');
 		
-		if ($ws->date == date('Y-m-d')) {
+		if ($ws->date == date('Y-m-d') && $ws->active_flag==1) {
 			if ($ws->id == $sess_ws) {
 				$login = Form::open(array_merge(array('url' => '/WS/stopAttend/', 'class' => 'delete', 'method' => 'get'))).Form::submit('Stop').Form::close();
 			} else {
@@ -91,6 +101,17 @@ function displayWorkshopList($workshops,$user){
 				<td>'.$ws->attendees->count().'</td>';
 		if ($user->permissions('fbinfo'))
 			echo '<td><a href="/FB/list/'.$ws->id.'" class="start">FB List</a></td>';
+		if ($user->permissions('wsinfo')){
+			if($ws->active_flag){ 
+				$warn_message = "'Are you sure you want to deactivate the workshop: ".$ws->title."?'";
+				echo '
+	                  <td>'.Form::open(array('url' => '/WS/switchWSStatus/', 'onclick' => "return confirm($warn_message);", 'class' => 'delete')).Form::hidden('ws_id', $ws->id).Form::submit('Deactivate').Form::close().'</td>';
+            }else{ 
+				$warn_message = "'Are you sure you want to activate the workshop: ".$ws->title."?'";
+				echo '
+	                 <td>'.Form::open(array('url' => '/WS/switchWSStatus/', 'onclick' => "return confirm($warn_message);", 'class' => 'addnew')).Form::hidden('ws_id', $ws->id).Form::submit('Activate').Form::close().'</td>';
+            }
+		}
 		echo '
 			</tr>';
 		
