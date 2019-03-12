@@ -52,8 +52,13 @@ foreach ($leads as $t) {
     
     $firstVTCs = Teacher::where('firstVTCer', '=', $t->id)->count();
     $secondVTCs = Teacher::where('secondVTCer', '=', $t->id)->count();
-    echo '
-            <td>'.$t->department->title.'</td>';
+    if($t->department){
+		echo '
+		<td>'.$t->department->title.'</td>';
+	}else{
+		echo '
+		<td></td>';	//department placeholder incase it's the first login 
+	}
     
     if (!$VTCs)
         echo '
