@@ -54,8 +54,15 @@ foreach ($tList as $ts) {
         echo '
         <tr class="'.((($i % 2) == 0) ? 'evenRow' : 'oddRow').'">
             <td><input type="radio" name="pres'.$j.'" value="'.$t->id.'" '.$chk.'/></td>
-            <td>'.$t->name.'</td>
-            <td>'.$t->department->title.'</td>
+            <td>'.$t->name.'</td>';
+		if($t->department){
+			echo '
+			<td>'.$t->department->title.'</td>';
+		}else{
+			echo '
+			<td></td>';	//department placeholder incase it's the first login 
+		}
+		echo '
             <td>'.$t->email.'</td>
             <td>'.ucfirst($t->affiliation).'</td>
         </tr>';

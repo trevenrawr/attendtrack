@@ -1,7 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-<p><a href="/R/dept/edit" class="start">Add or Remove Department</a></p>
+<p><a href="/R/dept/addOrRemove" class="start">Add or Remove Department</a></p>
+<p><a href="/R/dept/edit" class="start">Edit Department</a></p>
 
 <table class="WSList sortable">
     <thead>
@@ -28,5 +29,5 @@ foreach ($depts as $d) {
     <tfoot>
     </tfoot>
 </table>
-
+{{ $depts->links() }}
 @stop

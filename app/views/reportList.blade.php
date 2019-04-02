@@ -4,7 +4,9 @@
 <p>
     <a href="/R/dept/">Departmental Reports</a>
 </p>
-
+<p>
+    <a href="/R/teachers/">Teacher Reports</a>
+</p>
 <p>
     <a href="/R/cert/">Certificate Reports</a>
 </p>

@@ -257,4 +257,58 @@ class WorkshopController extends BaseController {
         Session::put('show_active_ws',!$current_active_flag);
         return Redirect::to('WS/list');
     }
+	
+	public function uploadAttendance($ws_id){
+		$uploaded_file = Input::File('attendanceCSV');
+		if(Input::hasFile('attendanceCSV') && $uploaded_file->getClientOriginalExtension() == 'csv'){
+			$file = fopen($uploaded_file, "r");
+			
+			while ( ($data = fgetcsv($file, 200, ",")) !==FALSE ){
+				 $uuid = $data[3];
+				 $ldapConn = ldap_connect('ldaps://directory.colorado.edu', 636);
+				 $search = ldap_search($ldapConn, "ou=people,dc=colorado,dc=edu", 'cuedupersonuuid='.$uuid);
+				 $info = ldap_get_entries($ldapConn, $search);
+				 ldap_unbind($ldapConn);
+				 $uuidStr = explode(",",$info[0]['dn'])[0];
+				 $identikey = explode("=",$uuidStr)[1];
+				 $dept_name = $info[0]['cuedupersonhomedepartment'][0];
+				 $t = Teacher::where('identikey', '=', $identikey)->first();
+				 if (empty($t)) {
+					$t = new Teacher;
+					$t->identikey = $identikey;
+					$t->email = strtolower($info[0]['mail'][0]);
+					$t->name = $info[0]['displayname'][0];
+					$t->save();
+				 }
+				 $this->attendWorkshop($t,$ws_id);
+			}
+			  
+			fclose($file);
+		}
+		return Redirect::to('WS/info/'.$ws_id);
+	}
+	
+	public function redirectToWSInfo(){
+		return Redirect::to('/WS/list/');
+	}
+	
+	private function attendWorkshop($teacher, $ws_id)
+    {
+		$att = Attendance::firstOrNew(array('teacher_id' => $teacher->id , 'workshop_id' => $ws_id));
+
+		$att->department_id = isset($teacher->department_id) ? $teacher->department_id : null;
+		$att->gender = isset($teacher->gender) ? $teacher->gender : null;
+		$att->program = isset($teacher->program) ? $teacher->program : null;
+		$att->affiliation = isset($teacher->affiliation) ? $teacher->affiliation : null;
+		$att->international = isset($teacher->international) ? $teacher->international : null;
+		$att->year = $teacher->year;
+		
+        $ws = Workshop::find($ws_id);
+        $att->credits = $ws->credits;
+        
+        if (count($att->getDirty()) > 0) {
+            $att->save();
+            $this->logAction('insert', 'AT'.$att->id);
+        }
+    }
 }

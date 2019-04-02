@@ -52,9 +52,14 @@ foreach ($tList as $t) {
     }
     
     echo '
-            <td><a href="mailto:'.$t->email.'">'.$t->email.'</a></td>
-            <td>'.$t->department->title.'</td>
-            <td>'.date_format(date_create($t->updated_at), 'M d, Y').'</td>';
+            <td><a href="mailto:'.$t->email.'">'.$t->email.'</a></td>';
+			if($t->department){
+				echo '<td>'.$t->department->title.'</td>';
+			}else{
+				echo '<td></td>';
+			}
+	echo		
+            '<td>'.date_format(date_create($t->updated_at), 'M d, Y').'</td>';
     
     if (Session::has('ws_att_id') && $user->permissions('attendance')) {
         if ($t->attended(Session::get('ws_att_id')))
