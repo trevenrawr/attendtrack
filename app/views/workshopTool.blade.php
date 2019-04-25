@@ -80,9 +80,21 @@ if (empty($user)) $user = new Teacher;
 @if(isset($workshop->id))
     <p>
         Attendees: {{ $workshop->demographics->count() }}
+		</br>
         @if($user->permissions('attendance'))
-        <span class="right"><a href="{{ '/WS/addAtt/'.$workshop->id }}" class="start">Add new attendee</a></span>
-        @endif
+			
+        <span class="left">
+		<?php echo Form::open(array('url' => 'WS/uploadAtt/'.$workshop->id, 'files' => 'true', 'onsubmit' => "if(uploaded_file.value.split('.')[1] != 'csv') return alert('Please upload a CSV with UUIDs to proceed');"))?>
+			{{'Select a file to upload attendance'}}
+				{{Form::file('attendanceCSV',array('id' => 'uploaded_file'))}}
+					{{Form::submit('Upload Attendance CSV')}}
+						{{Form::close()}}
+		</span>
+		</br></br>
+		<span class="left">
+		<a href="{{ '/WS/addAtt/'.$workshop->id }}" class="start">Add new attendee via Teacher Search</a>
+		</span>
+		@endif
     </p>
 
     @if($workshop->demographics->count() != 0)
@@ -125,8 +137,14 @@ if (empty($user)) $user = new Teacher;
 				}
 				echo '
                     <td><a href="mailto:'.$t->email.'">'.$t->email.'</a></td>';
-				echo '
+				if($t->department){
+					echo '
 					<td>'.$t->department->title.'</td>';
+				}else{
+					echo '
+					<td></td>';	//department placeholder incase it's the first time login through swipe
+				}
+				
             }
 				
             if ($user->permissions('attendance')) {

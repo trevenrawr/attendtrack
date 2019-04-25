@@ -50,7 +50,7 @@ Form::macro('deptList', function($sel)
     if ($sel == '' && Input::old('department_id') != '')
         $sel = Input::old('department_id');
     
-    $departments = Department::get();
+    $departments = Department::orderBy('title', 'asc')->get();
     $output = '
         <select name="department_id" id="department_id" autocomplete="off" required="true">
             <option value=""></option>';

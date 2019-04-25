@@ -153,6 +153,11 @@ Route::post('WS/switchWSStatus/', array('before' => 'isGTP:wsinfo', 'uses' => 'W
 //Switch to active/inactive workshops
 Route::get('WS/switchWSList', array('before' => 'isGTP:wsinfo', 'uses' => 'WorkshopController@switchWorkshopList'));
 
+// Upload attendance
+Route::post('WS/uploadAtt/{id}', array('before' => 'isGTP:attendance', function($id)
+{
+    return App::make('WorkshopController')->uploadAttendance($id);
+}));
 
 
 /* ------------------------------------------------------------------------- */
@@ -205,7 +210,9 @@ Route::post('FB/rem/', 'FeedbackController@deleteFB');
 Route::get('R/list/', 'ReportsController@reportList');
 
 // Edit the list of departments
+Route::get('R/dept/addOrRemove/', 'ReportsController@deptAddOrRemove');
 Route::get('R/dept/edit/', 'ReportsController@deptEdit');
+Route::post('R/dept/update/', 'ReportsController@deptUpdate');
 Route::post('R/dept/add/', 'ReportsController@deptAdd');
 Route::post('R/dept/rem/', 'ReportsController@deptRem');
 
@@ -238,6 +245,7 @@ Route::match(array('GET', 'POST'), 'R/VTCs/', 'ReportsController@VTCList');
 Route::match(array('GET', 'POST'), 'R/log/', 'ReportsController@actionList');
 
 Route::match(array('GET', 'POST'), 'R/suggestions/', 'ReportsController@suggestionList');
+Route::match(array('GET', 'POST'), 'R/teachers/', 'ReportsController@teacherList');
 
 
 

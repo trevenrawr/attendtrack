@@ -11,7 +11,8 @@ class ReportsController extends BaseController {
     
     public function deptList()
     {
-        $depts = Department::orderBy('title', 'asc')->get();
+		$perPage = 50;
+        $depts = Department::orderBy('title', 'asc')->paginate($perPage);
         
         $title = 'Department List';
         return View::make('departmentList', array('title' => $title, 'depts' => $depts));
@@ -31,18 +32,43 @@ class ReportsController extends BaseController {
         return View::make('departmentInfo', array('title' => $title, 'dept' => $dept));
     }
     
-    public function deptEdit()
+    public function deptAddOrRemove()
     {
         if ($this->getUser()->permissions('su')) {
             $depts = Department::orderBy('title', 'asc')->get();
 
             $title = 'Add or Remove Department';
-            return View::make('departmentEdit', array('title' => $title, 'depts' => $depts));
+            return View::make('departmentAddOrRemove', array('title' => $title, 'depts' => $depts));
         } else {
             return Redirect::back();
         }
     }
-            
+    
+	public function deptEdit()
+    {
+        if ($this->getUser()->permissions('su')) {
+            $title = 'Edit Department';
+            return View::make('departmentEdit', array('title' => $title));
+        } else {
+            return Redirect::back();
+        }
+    }
+	public function deptUpdate()
+    {
+        if ($this->getUser()->permissions('su')) {
+			$dept = Department::find(Input::get('department_id'));
+
+			$dept->title = Input::get('title');
+			$dept->STEM = Input::get('STEM');
+			
+			$dept->save();
+			$this->logAction('update', 'DP'.$dept->id);
+			Session::flash('message', $dept->title.' updated successfully!');
+			return Redirect::to('/R/dept/');
+        } else {
+            return Redirect::back();
+        }
+    }
     public function deptAdd()
     {
         if ($this->getUser()->permissions('su')) {
@@ -58,9 +84,9 @@ class ReportsController extends BaseController {
                 $this->logAction('insert', 'DP'.$dept->id);
                 
                 Session::flash('message', $dept->title.' added successfully!');
-                return Redirect::to('/R/dept/edit');
+                return Redirect::to('/R/dept/addOrRemove');
             } else {
-                return Redirect::to('/R/dept/edit')->withInput()->withErrors($v);
+                return Redirect::to('/R/dept/addOrRemove')->withInput()->withErrors($v);
             }
         } else {
             return Redirect::back();
@@ -78,7 +104,7 @@ class ReportsController extends BaseController {
             
             Session::flash('message', $title.' removed successfully!');
             
-            return Redirect::to('/R/dept/edit');
+            return Redirect::to('/R/dept/addOrRemove');
         }
     }
     
@@ -269,6 +295,15 @@ class ReportsController extends BaseController {
         
         $title = 'Suggestions List';
         return View::make('suggestionList', array('title' => $title, 'feedback' => $feedback));
+    }
+	
+	public function teacherList()
+    {
+		$perPage = 100;
+        $teachers = Teacher::where('id', '>', 1)->orderBy('department_id', 'asc')->paginate($perPage);
+        
+        $title = 'Teacher List';
+        return View::make('teacherList', array('title' => $title, 'teachers' => $teachers));
     }
             
 }
