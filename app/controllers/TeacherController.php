@@ -230,9 +230,9 @@ class TeacherController extends BaseController {
             // Organize and save extended information, and don't save attendance (in case the gtpAdmin forgot to stop attendance)
             if ($this->getUser()->permissions('tinfo') && !Session::has('workshop_id')) {
                 // All the fields that will be updated
-                $sets = array('firstVTCdate', 'secondVTCdate', 'CCT_status', 'CCT_disc_spec', 'CCT_obser_who', 'CCT_obser_date', 'CCT_depteval_who', 'CCT_depteval_date', 'CCT_port_status', 'CCT_survey_status', 'CCT_kolb_quad', 'CCT_kolb_who', 'CCT_kolb_date', 'CCT_wing_date', 'CCT_wing_who', 'CCT_notes', 'PDC_status', 'PDC_CV_status', 'PDC_visit_where', 'PDC_visit_date', 'PDC_port_status', 'PDC_pres_title', 'PDC_pres_date', 'PDC_plan_status', 'PDC_mentor_hrs', 'PDC_mentor_who', 'PDC_eval_date', 'PDC_eval_who', 'PDC_survey_status', 'PDC_notes');
+                $sets = array('firstVTCdate', 'secondVTCdate', 'CCT_status', 'CCT_disc_spec', 'CCT_disc_spec_who', 'CCT_obser_who', 'CCT_obser_date', 'CCT_depteval_who', 'CCT_depteval_date', 'CCT_port_status', 'CCT_survey_status', 'CCT_kolb_quad', 'CCT_kolb_who', 'CCT_kolb_date', 'CCT_wing_date', 'CCT_wing_who', 'CCT_notes', 'PDC_status', 'PDC_CV_status', 'PDC_visit_where', 'PDC_visit_date', 'PDC_port_status', 'PDC_pres_title', 'PDC_pres_date', 'PDC_plan_status', 'PDC_mentor_hrs', 'PDC_mentor_who', 'PDC_eval_date', 'PDC_eval_who', 'PDC_survey_status', 'PDC_notes','PECT_status','PECT_disc_spec','PECT_disc_spec_who','PECT_obser_who','PECT_obser_date','PECT_reflection_status','PECT_survey_status','PECT_notes');
                 
-                $dateCheck = array('CCT_status', 'CCT_port_status', 'CCT_survey_status', 'PDC_status', 'PDC_CV_status', 'PDC_port_status', 'PDC_plan_status', 'PDC_survey_status');
+                $dateCheck = array('CCT_status', 'CCT_port_status', 'CCT_survey_status', 'PDC_status', 'PDC_CV_status', 'PDC_port_status', 'PDC_plan_status', 'PDC_survey_status','PECT_status','PECT_reflection_status','PECT_survey_status');
                 
                 
                 foreach ($sets as $s) {

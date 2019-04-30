@@ -36,9 +36,14 @@ class WorkshopController extends BaseController {
 
         $perPage = 100;
         $title = 'Workshop List';
-        
-		$this->wsFilterFlash();
-        $wsName = Input::get('wsName');
+        $cur_page_num = Input::get('page');
+		if(empty($cur_page_num)){
+			$this->wsFilterFlash();
+			$wsName = Input::get('wsName');
+			Session::put('wsName',$wsName);
+		}else{
+			$wsName = Session::get('wsName');
+		}
 		$today = date('Y-m-d');
 		$filteredWorkshops = Workshop::with('series')->
             with('demographics')->
