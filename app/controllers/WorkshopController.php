@@ -37,22 +37,22 @@ class WorkshopController extends BaseController {
         $perPage = 100;
         $title = 'Workshop List';
         $cur_page_num = Input::get('page');
-		if(empty($cur_page_num)){
-			$this->wsFilterFlash();
-			$wsName = Input::get('wsName');
-			Session::put('wsName',$wsName);
-		}else{
-			$wsName = Session::get('wsName');
-		}
-		$today = date('Y-m-d');
-		$filteredWorkshops = Workshop::with('series')->
+        if(empty($cur_page_num)){
+            $this->wsFilterFlash();
+            $wsName = Input::get('wsName');
+            Session::put('wsName',$wsName);
+        }else{
+            $wsName = Session::get('wsName');
+        }
+        $today = date('Y-m-d');
+        $filteredWorkshops = Workshop::with('series')->
             with('demographics')->
             wsFilter()->
             where('title', 'LIKE', '%'.$wsName.'%')->
             where('active_flag','=',$active)->
             orderBy('date', 'desc');
-		$todaysWorkshops = with(clone $filteredWorkshops)->where('date','=',$today)->paginate($perPage);
-		$otherWorkshops = with(clone $filteredWorkshops)->where('date','<>',$today)->paginate($perPage);
+        $todaysWorkshops = with(clone $filteredWorkshops)->where('date','=',$today)->paginate($perPage);
+        $otherWorkshops = with(clone $filteredWorkshops)->where('date','<>',$today)->paginate($perPage);
 		
         return View::make('workshopList', array('title' => $title, 'todaysWorkshops'=>$todaysWorkshops, 'otherWorkshops' =>$otherWorkshops));
     }
