@@ -73,6 +73,8 @@ class FeedbackController extends BaseController {
             'ref_LeadEmail',
             'ref_DeptEmail',
             'ref_DeptPoster',
+            'ref_TARec',
+            'ref_ClassAssign',
             'ref_RSSFeed',
             'ref_Twitter',
             'ref_Facebook'

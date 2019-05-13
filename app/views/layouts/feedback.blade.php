@@ -131,6 +131,8 @@ Form::macro('referred', function($fb)
         'ref_LeadEmail' => 'Lead Graduate Teacher Email',
         'ref_DeptEmail' => 'Department Listserv',
         'ref_DeptPoster' => 'GTP Poster in Department',
+        'ref_TARec' => 'TA Recommended',
+        'ref_ClassAssign' => 'Class Assignment',
         'ref_RSSFeed' => 'RSS Feed',
         'ref_Twitter' => 'Twitter',
         'ref_Facebook' => 'Facebook'

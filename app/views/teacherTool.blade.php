@@ -321,6 +321,48 @@
     @endif
 </div>
 
+<!-- --------------------------------------------------------------------------------------------- -->
+<div class="dontBreak">
+    <h2 class="section"><a id="PECT"></a>Pursuing Excellence in College Teaching Credential:</h2>
+    <hr />
+
+    <fieldset>
+        <label for="status">Status</label>
+        {{ Form::status('PECT_status', $teacher, $dtext) }}
+        as of {{ Form::date('PECT_date', $teacher, $dperm) }}
+    </fieldset>
+
+    <fieldset>
+        <label for="PECT_disc_spec">Discipline-Specific Hours</label>
+            {{ Form::text('PECT_disc_spec', isset($teacher->PECT_disc_spec) ? $teacher->PECT_disc_spec : '', $dis) }}
+            signed off by {{ Form::who('PECT_disc_spec_who', $teacher, $dtext) }}
+
+        <label for="PECT_obser_date">Faculty/Lead Observation</label>
+            Observed by {{ Form::who('PECT_obser_who', $teacher, $dtext) }}
+            on {{ Form::date('PECT_obser_date', $teacher, $dtext) }}
+    </fieldset>
+
+    <fieldset>
+        <label for="PECT_reflection_status">Certificate Reflection</label>
+        {{ Form::status('PECT_reflection_status', $teacher, $dtext) }}
+        as of {{ Form::date('PECT_reflection_date', $teacher, $dperm) }}
+
+        <label for="PECT_survey_status">Exit Survey</label>
+        {{ Form::status('PECT_survey_status', $teacher, $dtext) }}
+        as of {{ Form::date('PECT_survey_date', $teacher, $dperm) }}
+    </fieldset>
+
+    @if($edit)
+
+    <fieldset>
+        <label for="PECT_notes">Office notes (not visible to teachers)</label>
+        {{ Form::longAnswer('PECT_notes', $teacher->PECT_notes) }}
+    </fieldset>
+
+    {{ Form::submit($butt, array('class' => 'submit')) }}
+    @endif
+</div>
+
 
 @endif
 

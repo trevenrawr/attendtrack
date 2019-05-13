@@ -75,9 +75,9 @@ Form::macro('status', function($name, $t, $dtext = '')
 {
     if ($name == 'CCT_kolb_quad')
         $options = array('diverging', 'assimilating', 'converging', 'accomodating');
-    elseif ($name == 'CCT_status' || $name == 'PDC_status')
+    elseif ($name == 'CCT_status' || $name == 'PDC_status' || $name == 'PECT_status')
         $options = array('inactive', 'active', 'certified');
-    elseif ($name == 'CCT_survey_status' || $name == 'PDC_survey_status')
+    elseif ($name == 'CCT_survey_status' || $name == 'PDC_survey_status' || $name == 'PECT_survey_status')
         $options = array('not sent', 'sent', 'completed');
     else
         $options = array('incomplete', 'in review', 'accepted');
