@@ -156,7 +156,7 @@ class TeacherController extends BaseController {
                 
                 $teacher->save();
                 Session::flash('message', '<strong>Welcome!</strong><br />
-                We see this is your first time logging in to our server!  Please fill out the demographic information below.  Don\'t worry, though, it will not be shared with anyone; only used by us internally to make our GTP workshops even more useful for you!  Thanks!');
+                We see this is your first time logging in to our server!  Please fill out the demographic information below.  Don\'t worry, though, it will not be shared with anyone; only used by us internally to make our GTP workshops even more useful for you!  Thanks!<br /><br /> To print this page, click Ctrl+P, choose the print destination and then click print.<br />To save this page, click Ctrl+P, choose the destination as \'Save as PDF\' and then click save');
                 
                 $this->logAction('insert', 'TD'.$teacher->id);
                 
@@ -172,7 +172,7 @@ class TeacherController extends BaseController {
 
                 // If they're just viewing their profile
                 } else {
-                    Session::flash('message', '<strong>Welcome back!</strong><br />  On this page you may edit some of your demographic information, as well as view your completed workshops and other Certificate requirements.');
+                    Session::flash('message', '<strong>Welcome back!</strong><br />  On this page you may edit some of your demographic information, as well as view your completed workshops and other Certificate requirements.<br /><br /> To print this page, click Ctrl+P, choose the print destination and then click print.<br />To save this page, click Ctrl+P, choose the destination as \'Save as PDF\' and then click save');
                     $full = true;
                 }
             }
